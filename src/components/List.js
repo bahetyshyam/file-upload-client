@@ -49,23 +49,23 @@ const List = () => {
     }
   };
 
-  const downloadFile = async (id) => {
-    axios({
-      url: `${process.env.REACT_APP_API_BASE_URL}/files/${id}`, //your url
-      method: "GET",
-      responseType: "blob",
-    }).then((response) => {
-      const fileName = response.headers["content-disposition"].split(
-        "filename="
-      )[1];
-      const url = window.URL.createObjectURL(new Blob([response.data]));
-      const link = document.createElement("a");
-      link.href = url;
-      link.setAttribute("download", fileName); //or any other extension
-      document.body.appendChild(link);
-      link.click();
-    });
-  };
+  // const downloadFile = async (id) => {
+  //   axios({
+  //     url: `${process.env.REACT_APP_API_BASE_URL}/files/${id}`, //your url
+  //     method: "GET",
+  //     responseType: "blob",
+  //   }).then((response) => {
+  //     const fileName = response.headers["content-disposition"].split(
+  //       "filename="
+  //     )[1];
+  //     const url = window.URL.createObjectURL(new Blob([response.data]));
+  //     const link = document.createElement("a");
+  //     link.href = url;
+  //     link.setAttribute("download", fileName); //or any other extension
+  //     document.body.appendChild(link);
+  //     link.click();
+  //   });
+  // };
 
   const getAllData = async () => {
     try {
@@ -97,12 +97,14 @@ const List = () => {
           key="link"
           render={(text, record) => (
             <Space size="middle">
-              <span
+              <a
                 className="download"
-                onClick={() => downloadFile(record.key)}
+                href={`${process.env.REACT_APP_API_BASE_URL}/files/${record.key}`}
+                rel="noopener noreferrer"
+                target="_blank"
               >
                 Download
-              </span>
+              </a>
             </Space>
           )}
         />
