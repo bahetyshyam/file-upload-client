@@ -1,6 +1,6 @@
 import React from "react";
 import { Layout, Menu } from "antd";
-import { Router, Link } from "@reach/router";
+import { Switch, Route, Link } from "react-router-dom";
 import Home from "./Home";
 import Upload from "./Upload";
 import List from "./List";
@@ -41,12 +41,16 @@ const Main = () => {
           alignItems: "center",
         }}
       >
-        <Router>
-          <Home path="/" />
-          <Upload path="/upload" />
-          <List path="list" />
-          <Statistics path="/statistics" />
-        </Router>
+        <Switch>
+          <Route path="/" exact component={Home} />
+          <Route path="/upload" component={Upload} />
+          <Route path="/list" component={List} />
+          <Route path="/statistics" component={Statistics} />
+        </Switch>
+        {/* <Home path="/" />
+        <Upload path="/upload" />
+        <List path="list" />
+        <Statistics path="/statistics" /> */}
       </Content>
     </Layout>
     // <Layout style={{ padding: "0 24px 24px" }}>

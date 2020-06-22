@@ -13,3 +13,24 @@ body {
   color: white;
   font-size: 24px;
 }
+
+.container {
+  height: 100%;
+  width: 100%;
+}
+
+.uploadbox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border: 1px dashed black;
+  cursor: pointer;
+  height: 200px;
+  width: 300px;
+}
+
+.download {
+  cursor: pointer;
+  color: blue;
+}
