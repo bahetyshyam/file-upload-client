@@ -14,14 +14,14 @@ const List = () => {
   const [editedFilenameId, setEditedFilenameId] = useState(null);
 
   const deleteFile = (id) => {
-    setDeleteLoading(true);
+    setDeleteLoading((state) => !state);
     try {
       const response = axios.post(
         `${process.env.REACT_APP_API_BASE_URL}/delete/${id}`
       );
       console.log(response);
       getAllData();
-      setDeleteLoading(false);
+      setDeleteLoading((state) => !state);
     } catch (e) {
       console.log(e);
     }
@@ -33,7 +33,7 @@ const List = () => {
     setEditedFilenameId(id);
   };
   const handleEditOk = async () => {
-    setConfirmLoading(true);
+    setConfirmLoading((state) => !state);
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_API_BASE_URL}/updateFileName/${editedFilenameId}/${editedFilename}`
@@ -43,7 +43,7 @@ const List = () => {
       setEditedFilename(null);
       setEditedFilenameId(null);
       setOpenEditModal(false);
-      setConfirmLoading(false);
+      setConfirmLoading((state) => !state);
     } catch (err) {
       console.log(err);
     }
