@@ -7,21 +7,25 @@ const { Column } = Table;
 
 const List = () => {
   const [tableData, setTableData] = useState([]);
-  const [deleteLoading, setDeleteLoading] = useState(false);
+  const [deleteLoading, setDeleteLoading] = useState([]);
   const [openEditModal, setOpenEditModal] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [editedFilename, setEditedFilename] = useState(null);
   const [editedFilenameId, setEditedFilenameId] = useState(null);
+  console.log(deleteLoading);
 
-  const deleteFile = (id) => {
-    setDeleteLoading((state) => !state);
+  const deleteFile = async (id) => {
+    let loading = deleteLoading.slice();
+    loading[id] = true;
+    setDeleteLoading(loading);
     try {
-      const response = axios.post(
+      const response = await axios.post(
         `${process.env.REACT_APP_API_BASE_URL}/delete/${id}`
       );
       console.log(response);
       getAllData();
-      setDeleteLoading((state) => !state);
+      loading[id] = false;
+      setDeleteLoading(loading);
     } catch (e) {
       console.log(e);
     }
@@ -72,7 +76,7 @@ const List = () => {
       const response = await axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/files`
       );
-      console.log(response.data);
+
       const data = response.data.map((item) => {
         return {
           key: item._id,
@@ -119,7 +123,7 @@ const List = () => {
               />
               <Button
                 icon={<DeleteFilled />}
-                loading={deleteLoading}
+                loading={deleteLoading[record.key] || false}
                 onClick={() => deleteFile(record.key)}
               />
             </Space>

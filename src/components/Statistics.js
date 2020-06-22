@@ -11,7 +11,6 @@ const Statistics = () => {
       const response = await axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/files`
       );
-      console.log(response.data);
       let pdfCount = 0;
       let mp4Count = 0;
       let jpegCount = 0;

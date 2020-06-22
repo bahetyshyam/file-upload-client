@@ -10,7 +10,6 @@ const Upload = () => {
 
   const onFileChange = (e) => {
     e.preventDefault();
-    console.log(e.target.files);
     setSelectedFile(e.target.files[0]);
   };
 
@@ -21,7 +20,6 @@ const Upload = () => {
     await axios
       .post(`${process.env.REACT_APP_API_BASE_URL}/upload`, data)
       .then((data) => {
-        console.log(data);
         // setResponseFromServer(data);
         setLoading(false);
         setMessage("File Upload Successful");
@@ -29,7 +27,6 @@ const Upload = () => {
         setSelectedFile(null);
       })
       .catch((e) => {
-        console.log(e.response);
         setMessage("Please upload PNG/JPEG/MP4/PDF formats only.");
         setModalVisible(true);
         setLoading(false);
